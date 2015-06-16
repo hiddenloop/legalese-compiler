@@ -73,14 +73,8 @@ twitshit.newRound({ name: "Additional Investment",
 				  });
 
 
-twitshit.newSecurity(new Security.ConvertibleDebt({name:"Convertible Note", corp:twitshit, essential:"debt",
-												   interestRate:0.05,
-												   maturityDate:"20180101",
-												   convertsTo:"Next Equity Security",
-												   futureRoundHandler:function(nextRound){return nextRound},
-												   convert: function(nextRound){return nextRound},
-												  }));
-twitshit.newRound({ name: "FFF Round",
+twitshit.howTo({method: twitshit.newRound,
+				params: { name: "FFF Round",
 					securityName: "Convertible Note",
 					date: "20151201", // approximate date of round.
 					subscriptions: [
@@ -95,9 +89,16 @@ twitshit.newRound({ name: "FFF Round",
 						date: "20151201", // date of subscription agreement
 					  },
 					],
-				  });
+						}});
 
-twitshit.display({address:false});
+twitshit.newSecurity(new Security.ConvertibleDebt({name:"Convertible Note", corp:twitshit, essential:"debt",
+												   interestRate:0.05,
+												   maturityDate:"20180101",
+												   convertsTo:"Next Equity Security",
+												   futureRoundHandler:function(nextRound){return nextRound},
+												   convert: function(nextRound){return nextRound},
+												  }));
 
-twitshit.getCaptable().display();
+// twitshit.display({address:false});
+// twitshit.getCaptable().display();
 
