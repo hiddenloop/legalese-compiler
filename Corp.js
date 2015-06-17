@@ -43,7 +43,7 @@ Class('Security.Debt', {
   has: { interestRate: {is:'ro',required:true,},
 		 maturityDate: {is:'ro',required:true,},
                  valuationCap: {is:'ro',required:false,},
-                 	 
+                 discountRate: {is:'ro',required:false,},	 
 	   },
 });
 
