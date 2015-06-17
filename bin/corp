@@ -1,0 +1,104 @@
+#!/usr/local/bin/node
+
+// mengwong 20141201
+// inspired by http://szabo.best.vwh.net/contractlanguage.html
+// and by http://commonaccord.org/PDFs/Cmacc-LegallyenabledCrypto-Transacting.pdf
+
+// var argv = require('optimist').argv;
+// var fs = require("fs");
+
+var Corplib = require("../lib/Corp.js");
+
+var twitshit = new Corp({ name:   "TwitShit Pte. Ltd.",
+					  idtype: "UEN",
+					  id:     "00001234K",
+					  state:  "Singapore",
+					  address: "71 Ayer Rajah Crescent\n#05-16\nSingapore 139951",
+});
+
+twitshit.display({address:true});
+
+twitshit.newSecurity(new Security.Equity({name:"Ordinary Shares", corp:twitshit, essential:"equity"}));
+var pricePerShare = "S$1";
+twitshit.newRound({ name: "Incorporation",
+					securityName: "Ordinary Shares",
+					date: "20150601", // approximate date of round.
+					pricePerShare: pricePerShare,
+					subscriptions: [
+					  { person: new Person({ name: "Alice", idtype: "NRIC", id: "S123456A",
+											 state: "Singapore",
+											 address: "One Nassim Lane\nSingapore 100101"}),
+						holding: new Corp.Holding({ commitment: 10,
+													currency:   "S$",
+													num_units:  10,
+													price_per:  pricePerShare,
+													securityName: "Ordinary Shares",
+													corp:       twitshit,
+												  }),
+						date: "20150615", // date of subscription agreement
+					  },
+					  { person: new Person({ name: "Bob", idtype: "NRIC", id: "S222222B",
+											 state: "Singapore",
+											 address: "Two Nassim Lane\nSingapore 100102"}),
+						holding: new Corp.Holding({ commitment: 20,
+													currency:   "S$",
+													num_units:  20,
+													price_per:  pricePerShare,
+													securityName: "Ordinary Shares",
+													corp:       twitshit,
+												  }),
+						date: "20150615", // date of subscription agreement
+					  },
+					],
+				  });
+twitshit.display({address:false});
+
+pricePerShare="S$10";
+twitshit.newRound({ name: "Additional Investment",
+					securityName: "Ordinary Shares",
+					date: "20150601", // approximate date of round.
+					pricePerShare: pricePerShare,
+					subscriptions: [
+					  { person: "Alice",
+						holding: new Corp.Holding({ commitment: 1000,
+													currency:   "S$",
+													num_units:  100,
+													price_per:  pricePerShare,
+													securityName: "Ordinary Shares",
+													corp:       twitshit,
+												  }),
+						date: "20150615", // date of subscription agreement
+					  },
+					],
+				  });
+
+
+twitshit.howTo({method: twitshit.newRound,
+				params: { name: "FFF Round",
+					securityName: "Convertible Note",
+					date: "20151201", // approximate date of round.
+					subscriptions: [
+					  { person: new Person({ name: "Charlie", idtype: "NRIC", id: "S333333C",
+											 state: "Singapore",
+											 address: "Three Nassim Lane\nSingapore 100103"}),
+						holding: new Corp.Holding({ commitment: 10000,
+													currency:   "S$",
+													securityName: "Convertible Note",
+													corp:       twitshit,
+												  }),
+						date: "20151201", // date of subscription agreement
+					  },
+					],
+						}});
+
+twitshit.newSecurity(new Security.ConvertibleDebt({name:"Convertible Note", corp:twitshit, essential:"debt",
+												   interestRate:0.05,
+												   maturityDate:"20180101",
+												   convertsTo:"Next Equity Security",
+												   futureRoundHandler:function(nextRound){return nextRound},
+												   convert: function(nextRound){return nextRound},
+												  }));
+
+// twitshit.display({address:false});
+// twitshit.getCaptable().display();
+

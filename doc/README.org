@@ -1,0 +1,109 @@
+#+TITLE: Corp.js: Corporate Finance in a Javascript Library
+
+This library provides formalizations for common corporate structures, operations, and dependency computations.
+
+You may use this library to model a startup and compute the paperwork needed to effect a fundraising.
+
+You may also use this library to explore scenarios. When does convertible debt trigger? How do liquidation preferences affect returns?
+
+The "business logic" presented here may be subclassed for specific jurisdictions.
+
+* Corporate Structures
+
+** Corp: a corporation
+
+* Securities
+
+** What economic attributes does the security have?
+
+In Singapore, see FRS32, particularly AG28 and AG31.
+
+*** It may be issued as a share of the company's capital stock.
+
+**** If it may participate in residual distributions at winding-up, it is /participating/.
+
+**** If has special rights, then it is /Preferred/.
+**** Else, it is /Ordinary/.
+
+*** It may be /voting/ or /nonvoting/.
+
+*** If the purchase price or some variation thereof is liable to be repaid at maturity or at the option of the holder,
+**** it is a liability.
+**** If it was not issued a share, then it is a debt instrument.
+
+*** Does it bear interest?
+**** If it is equity, then it is Dividend-bearing Preferred
+**** If it is debt, it is debt with interest.
+
+*** May the dividends accumulate?
+**** The Company may be obligated to pay dividends yearly.
+**** Or the Company may be allowed to keep accumulating the dividends.
+
+*** Is it Redeemable?
+**** If it is redeemable at the option of the holder, then it is Redeemable.
+**** if it is redeemable at the option of the company, then it is Redeemable.
+
+*** Is it Convertible?
+**** If it is convertible to a different instrument, it is /convertible/.
+
+** What control attributes does the security have?
+
+*** Reserved Matters
+usually defined in the Shareholders agreement
+
+*** Information Rights
+
+* Interactions
+
+** Creation of a class of preference shares
+
+A class of shares that is not Ordinary must be defined in the Company's constitutional documents.
+
+(see Section 75 of SFA)
+
+The following attributes must be specified:
+
+- repayment of capital,
+- participation in surplus assets and profits,
+- cumulative or non-cumulative dividends,
+- voting and
+- priority of payment of capital and dividend in relation to other shares or other classes of preference shares.
+
+
+** Non-equity debt instruments do not need to be defined in the constitutional documents.
+
+** Issue of Shares
+
+Prior to the issue of shares, Section 161 must be satisfied -- existing shareholders' pre-emptive rights must be respected.
+
+** Conversion of instruments
+
+An instrument may be convertible to a different instrument:
+
+*** at the option of the holder
+
+either individually or as a voting class
+
+*** at the option of the company
+
+either with the authority of the directors
+
+or requiring the approval of the Company in general meeting
+
+*** upon the occurrence of a certain event
+
+**** such as the arrival of a certain (Maturity) date
+
+**** such as a change of control
+
+**** such as a subsequent fundraising
+
+* Constitutional Documents are also known as:
+
+** in the US, a Certificate of Incorporation
+
+** in Singapore, the Articles of Association
+
+
+
+
