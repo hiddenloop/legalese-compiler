@@ -35,6 +35,7 @@ Class('Security', {
 // equity
 Class('Security.Equity', {
   isa: Security,
+  has: {maturityDate: {is:'ro',required:false,}
 });
 
 // a note/debenture/bond
